@@ -121,22 +121,20 @@ class urwidView():
                         pop_ups=True).run()
 
     def handleKey(self, key):
-        if key == ':':
-            self.mode = MODE.COMMAND
-            self.commandBar.set_caption(':')
-            self.body.focus_position = 'footer'
-            self.renderScreen()
+        if len(key) == 1: # avoid mouse click event tuples
+            if key == ':':
+                self.mode = MODE.COMMAND
+                self.commandBar.set_caption(':')
+                self.body.focus_position = 'footer'
+                self.renderScreen()
 
-        if self.mode is MODE.NORMAL:
-            rows, cols = urwid.raw_display.Screen().get_cols_rows()
-            DEBUG(key)
-            if key.isalpha():
-                key = key.lower()
-            
-            if key not in urwidView.KEYMAP.keys():
-                return
+            if self.mode is MODE.NORMAL:
+                DEBUG(key)
+                if key not in urwidView.KEYMAP.keys():
+                    return
 
-            self.body.keypress((rows, cols), urwidView.KEYMAP[key])
+                rows, cols = urwid.raw_display.Screen().get_cols_rows()
+                self.body.keypress((rows, cols), urwidView.KEYMAP[key.lower()])
 
 ################################################################################
 
