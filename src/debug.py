@@ -16,10 +16,11 @@ def setupLogger():
     '''
     LEVEL  = logging.DEBUG
     FILE   = "debug.log"
+    MODE = "w"
     FORMAT = "[%(levelname)8s]:%(filename)-23s#%(lineno)-3s --- %(message)s"
     # FORMAT =  "%(lineno)s:\n%(message)s"  # the old format
 
-    handler = logging.FileHandler(FILE)
+    handler = logging.FileHandler(FILE, mode=MODE)
     handler.setFormatter(logging.Formatter(FORMAT))
     logger.setLevel(LEVEL)
 
